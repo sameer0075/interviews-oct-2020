@@ -3,12 +3,13 @@ export default class Calculation {
         this.expression = expression;
         this.a = 0;
         this.b = 0;
+       
     }
 
     addition() {
         return this.a + this.b;
     }
-
+ 
     subtraction() {
         return this.a - this.b;
     }
@@ -22,12 +23,18 @@ export default class Calculation {
     }
 
     calculate() {
-        let pattern = null/* @TODO Add regular expression */;
+        let pattern = /^(\d+)([+\-*\/])(\d+)/;
+        /* @TODO Add regular expression */
 
         if (this.expression.match(pattern)) {
             let matches = pattern.exec(this.expression);
+            console.log("matches",matches);
+            //matches = false
 
-            let sign = matches[3];
+            let sign = matches[2];
+            this.a=parseInt(matches[1]);
+            this.b=parseInt(matches[3]);
+            console.log("sign",sign);
 
             /**
              * @TODO Implement it
@@ -37,16 +44,17 @@ export default class Calculation {
 
             switch (sign) {
                 case '+':
-                    result = this.addition();
+                    // result = this.addition();
+                   result = this.a + " " + matches[2] + " " + this.b + " " + "= " + this.addition();
                     break;
                 case '-':
-                    result = this.subtraction();
+                    result = this.a + " " + matches[2] + " " + this.b + " " + "= " + this.subtraction();
                     break;
                 case '*':
-                    result = this.production();
+                    result = this.a + " " + matches[2] + " " + this.b + " " + "= " + this.production();
                     break;
                 case '/':
-                    result = this.division();
+                    result = this.a + " " + matches[2] + " " + this.b + " " + "= " + this.division();
                     break;
             }
 
