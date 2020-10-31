@@ -8,9 +8,10 @@ export default class Paragraph extends React.Component {
                 <p className="panel-heading">Result</p>
 
                 <p className="panel-body">
+                    
                     {this.props.content}
                 </p>
             </div>
         );
     }
-}
+} 
