@@ -10,7 +10,12 @@ export default class Layout extends React.Component {
         this.state = {
             content: '',
             value: ''
+            
         };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handle = this.handle.bind(this);
 
         /**
          * @TODO Implement it
@@ -19,19 +24,36 @@ export default class Layout extends React.Component {
 
     handleChange(event) {
         // @TODO Implement it
+        this.setState({
+            value:event.target.value
+        })
+
+    }
+
+    handle(x){
+        this.setState({
+            content:x
+        })
     }
 
     handleSubmit(event) {
         event.preventDefault();
 
         let calculation = new Calculation(this.state.value);
-
-        let result = null/* @TODO Implement it */;
+        {console.log(calculation);}
+        {console.log("calc",calculation.calculate());}
+        // calculation.expression = '/^[-+]?[1-9]\d*$/';
+        let result = calculation.calculate()/* @TODO Implement it */;
 
         let content = 'Wrong input!';
 
         if (result !== false) {
             // @TODO Implement it
+            {this.handle(result)}
+        }
+
+        else{
+            this.handle(content);
         }
 
         /**
@@ -49,13 +71,13 @@ export default class Layout extends React.Component {
                 <div className="container">
                     <div className="row">
                         <form className="col-md-6 col-md-offset-3 text-center" onSubmit={this.handleSubmit}>
-                            <input type="text" className="form-control col-md-9" placeholder="expression..."
+                            <input type="text" className="form-control col-md-9"name="value" placeholder="expression..."onChange={this.handleChange} value={this.state.value}
                                    /* @TODO Implement it *//>
                             <input className="btn btn-success" type="submit" value="Submit"/>
                         </form>
                     </div>
 
-                    <Paragraph /* @TODO Implement it *//>
+                    <Paragraph content = {this.state.content}/* @TODO Implement it *//>
                 </div>
             </div>
         )
